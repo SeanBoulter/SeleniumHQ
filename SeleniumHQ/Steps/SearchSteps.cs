@@ -1,5 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.PhantomJS;
 using TechTalk.SpecFlow;
 
 namespace SeleniumHQ.Steps
@@ -10,7 +13,12 @@ namespace SeleniumHQ.Steps
         [Given(@"I have entered (.*) into the calculator")]
         public void GivenIHaveEnteredIntoTheCalculator(int p0)
         {
-            Assert.IsTrue(true);
+            var driver = new PhantomJSDriver{Url = @"http://www.google.com"};
+            driver.Navigate();
+            var searchBox = driver.FindElement(By.Name("q"));           
+            Assert.IsTrue(searchBox.Displayed);
+            searchBox.SendKeys("Hello World");
+            driver.Dispose();
         }
         
         [When(@"I press add")]
